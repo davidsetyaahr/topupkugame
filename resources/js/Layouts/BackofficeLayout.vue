@@ -1,0 +1,68 @@
+<script setup>
+import { Head } from '@inertiajs/vue3'
+
+</script>
+<template>
+    <Head :title="title" />
+    <div class="sidebar">
+        <div class="logo text-center fw-bold">
+            <span class="fa fa-gamepad me-2"></span> TopUpKu Game
+        </div>
+        <ul>
+            <li :class="segment1 == 'dashboard' ? 'active' : ''"><Link href="/dashboard"><span class="fa fa-dashboard"></span> Dashboard </Link></li>
+            <li :class="segment1 == 'pemesanan' ? 'active' : ''"><Link href="/pemesanan"><span class="fa fa-mobile-alt"></span> Pemesanan</Link></li>
+            <li  :class="segment1 == 'produk' ? 'active' : ''"><Link href="/produk"><span class="fa fa-gamepad"></span> Produk</Link></li>
+            <li  :class="segment1 == 'banner' ? 'active' : ''"><Link href="/banner"><span class="fa fa-image"></span> Banner</Link></li>
+            <li  :class="segment1 == 'rekap' ? 'active' : ''"><Link href="/rekap"><span class="fa fa-file"></span> Rekap</Link></li>
+        </ul>
+        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/22ba8af1-9afe-4a42-8798-aa2a150683e0/dcc3x19-0caebc89-cddd-49e1-a23a-6cfe40e26bbe.png/v1/fill/w_1024,h_575,strp/mobile_legends_gatot_kaca_transparent__ahrat_king_by_b_la_ze_dcc3x19-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTc1IiwicGF0aCI6IlwvZlwvMjJiYThhZjEtOWFmZS00YTQyLTg3OTgtYWEyYTE1MDY4M2UwXC9kY2MzeDE5LTBjYWViYzg5LWNkZGQtNDllMS1hMjNhLTZjZmU0MGUyNmJiZS5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.xRBLY3WcKPH6t0JrNZWB1AxzGyfTnIYgJv78MERZRcc" alt="" class="sticky-img"/>
+    </div>
+    <div class="main">
+        <div class="header">
+            <div class="d-flex align-items-lg-center">
+                <span class="user me-3">
+                    <span class="fa fa-user"></span>
+                </span>
+                <div>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="me-3 color-white">Admin</span> 
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+  </ul>
+</div>                    
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <slot/>
+        </div>
+    </div>    
+</template>
+<script>
+import { Inertia } from "@inertiajs/inertia";
+
+export default {
+    props:{
+        title : String,
+        ziggy : Object
+    },
+    data(){
+        return{
+            segment1 : window.location.pathname.split("/")[1],
+        }
+    },
+    watch:{
+        title(){
+            this.segment1 = window.location.pathname.split("/")[1]
+        }
+    }
+}
+</script>
+<style lang="scss">
+    @import "@/../css/_variable.scss";
+    @import "@/../css/backoffice.scss";
+</style>
