@@ -18,7 +18,7 @@
               <th>#</th>
               <th>Bank</th>
               <th>Nama</th>
-              <th>Nomer Akun</th>
+              <th>Account No</th>
               <th width="25%">Opsi</th>
             </tr>
           </thead>
