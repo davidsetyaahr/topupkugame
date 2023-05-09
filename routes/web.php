@@ -3,6 +3,7 @@
 use App\Http\Controllers\backend\BannerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\backend\DashboardController;
+use App\Http\Controllers\backend\PaymentMethodController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\SellController;
 use App\Http\Controllers\frontend\HomeController;
@@ -34,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/rekap', [SellController::class, 'rekap']);
     Route::resource('/pemesanan', SellController::class);
     Route::resource('/banner', BannerController::class);
+    Route::resource('/payment-method', PaymentMethodController::class);
 });
 
 Route::middleware('auth')->group(function () {
