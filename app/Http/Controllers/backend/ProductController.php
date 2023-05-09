@@ -63,30 +63,38 @@ class ProductController extends Controller
             'amount.*'   => 'required',
             'margin.*'   => 'required',
         ]);
-        DB::transaction(function () use ($request) {
-            $document = $request->banner;
-            $document->storeAs('storage/banner', $document->hashName());
-            $documentTop = $request->top_banner;
-            $documentTop->storeAs('storage/top-banner', $documentTop->hashName());
-            $model = new Product();
-            $model->company_id = $request->company_id['key'] + 1;
-            $model->name = $request->name;
-            $model->banner = $document->hashName();
-            $model->top_banner = $documentTop->hashName();
-            $model->description = $request->desc;
-            $model->url = str_replace(' ', '-', strtolower($request->name));
-            $model->save();
+        try {
+            DB::transaction(function () use ($request) {
+                $document = $request->banner;
+                $document->storeAs('banner', $document->hashName());
+                $documentTop = $request->top_banner;
+                $documentTop->storeAs('top-banner', $documentTop->hashName());
+                $model = new Product();
+                $model->company_id = $request->company_id['key'] + 1;
+                $model->name = $request->name;
+                $model->banner = $document->hashName();
+                $model->top_banner = $documentTop->hashName();
+                $model->description = $request->desc;
+                $model->url = str_replace(' ', '-', strtolower($request->name));
+                $model->save();
 
-            // insert voucher
-            foreach ($request->voucher as $key => $value) {
-                $modelVouher = new Voucher;
-                $modelVouher->product_id  = $model->id;
-                $modelVouher->title = $value;
-                $modelVouher->amount = $request->amount[$key];
-                $modelVouher->margin = $request->margin[$key];
-                $modelVouher->save();
-            }
-        });
+                // insert voucher
+                foreach ($request->voucher as $key => $value) {
+                    $modelVouher = new Voucher;
+                    $modelVouher->product_id  = $model->id;
+                    $modelVouher->title = $value;
+                    $modelVouher->amount = $request->amount[$key];
+                    $modelVouher->margin = $request->margin[$key];
+                    $modelVouher->save();
+                }
+            });
+
+            return redirect()->route('produk.index')->with('message', 'Data berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
     }
 
     /**
@@ -122,7 +130,7 @@ class ProductController extends Controller
             array_push($data['margin'], $value->margin);
         }
         return Inertia::render('Backend/Product/Form', [
-            'title' => 'Tambah Produk',
+            'title' => 'Edit Produk',
             'company' => Company::all(),
             'data' => $data,
         ]);
@@ -147,39 +155,47 @@ class ProductController extends Controller
         // if ($request->top_banner) {
         //     'top_banner'   => 'required|mimes:jpeg,png,jpg',
         // }
-        DB::transaction(function () use ($request, $id) {
-            Voucher::where('product_id', $id)->delete();
-            if ($request->banner) {
-                $document = $request->banner;
-                $document->storeAs('storage/banner', $document->hashName());
-            }
-            if ($request->top_banner) {
-                $documentTop = $request->top_banner;
-                $documentTop->storeAs('storage/top-banner', $documentTop->hashName());
-            }
-            $model = Product::find($id);
-            $model->company_id = $request->company_id['key'] + 1;
-            $model->name = $request->name;
-            if ($request->banner) {
-                $model->banner = $document->hashName();
-            }
-            if ($request->top_banner) {
-                $model->top_banner = $documentTop->hashName();
-            }
-            $model->description = $request->desc;
-            $model->url = str_replace(' ', '-', strtolower($request->name));
-            $model->save();
+        try {
+            DB::transaction(function () use ($request, $id) {
+                Voucher::where('product_id', $id)->delete();
+                if ($request->banner) {
+                    $document = $request->banner;
+                    $document->storeAs('banner', $document->hashName());
+                }
+                if ($request->top_banner) {
+                    $documentTop = $request->top_banner;
+                    $documentTop->storeAs('top-banner', $documentTop->hashName());
+                }
+                $model = Product::find($id);
+                $model->company_id = $request->company_id['key'] + 1;
+                $model->name = $request->name;
+                if ($request->banner) {
+                    $model->banner = $document->hashName();
+                }
+                if ($request->top_banner) {
+                    $model->top_banner = $documentTop->hashName();
+                }
+                $model->description = $request->desc;
+                $model->url = str_replace(' ', '-', strtolower($request->name));
+                $model->save();
 
-            // insert voucher
-            foreach ($request->voucher as $key => $value) {
-                $modelVouher = new Voucher;
-                $modelVouher->product_id  = $model->id;
-                $modelVouher->title = $value;
-                $modelVouher->amount = $request->amount[$key];
-                $modelVouher->margin = $request->margin[$key];
-                $modelVouher->save();
-            }
-        });
+                // insert voucher
+                foreach ($request->voucher as $key => $value) {
+                    $modelVouher = new Voucher;
+                    $modelVouher->product_id  = $model->id;
+                    $modelVouher->title = $value;
+                    $modelVouher->amount = $request->amount[$key];
+                    $modelVouher->margin = $request->margin[$key];
+                    $modelVouher->save();
+                }
+            });
+
+            return redirect()->route('produk.index')->with('message', 'Data berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan pada database : ' . $e);
+        }
     }
 
     /**

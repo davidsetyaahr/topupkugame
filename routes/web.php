@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\backend\BannerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\ProductController;
@@ -30,7 +31,9 @@ Route::get('/order-success/{url}', [OrderController::class, 'orderSuccess']);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/produk', ProductController::class);
+    Route::get('/rekap', [SellController::class, 'rekap']);
     Route::resource('/pemesanan', SellController::class);
+    Route::resource('/banner', BannerController::class);
 });
 
 Route::middleware('auth')->group(function () {
