@@ -21,6 +21,9 @@ import { Head } from "@inertiajs/vue3";
       <li :class="segment1 == 'produk' ? 'active' : ''">
         <Link href="/produk"><span class="fa fa-gamepad"></span> Produk</Link>
       </li>
+      <li :class="segment1 == 'customer' ? 'active' : ''">
+        <Link href="/customer"><span class="fa fa-users"></span> Customer</Link>
+      </li>
       <li :class="segment1 == 'banner' ? 'active' : ''">
         <Link href="/banner"><span class="fa fa-image"></span> Banner</Link>
       </li>

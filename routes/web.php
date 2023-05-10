@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\backend\BannerController;
+use App\Http\Controllers\backend\CustomerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\PaymentMethodController;
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/pemesanan', SellController::class);
     Route::resource('/banner', BannerController::class);
     Route::resource('/payment-method', PaymentMethodController::class);
+    Route::resource('/customer', CustomerController::class);
 });
 
 Route::middleware('auth')->group(function () {
