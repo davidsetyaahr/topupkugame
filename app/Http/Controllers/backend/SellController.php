@@ -43,7 +43,7 @@ class SellController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Sell::find($id);
     }
 
     /**
@@ -105,7 +105,7 @@ class SellController extends Controller
                 $model->save();
             });
 
-            return redirect()->route('pemesanan.index')->with('message', 'Data berhasil diterima.');
+            return Inertia::location(route('pemesanan.index'));
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
@@ -123,7 +123,7 @@ class SellController extends Controller
                 $model->save();
             });
 
-            return redirect()->route('pemesanan.index')->with('message', 'Data berhasil diterima.');
+            return Inertia::location(route('pemesanan.index'));
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {

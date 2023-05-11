@@ -5,7 +5,12 @@
         <form @submit.prevent="submit">
           <div class="row">
             <div class="col-md-12 mb-3">
-              <label for="">Nama Produk</label>
+              <label for=""
+                >Nama Produk
+                <span v-if="errors.name" style="color: red"
+                  >* {{ errors.name }}</span
+                ></label
+              >
               <input
                 type="text"
                 v-model="form.name"
@@ -14,7 +19,12 @@
               />
             </div>
             <div class="col-md-4 mb-3">
-              <label for="">Company</label>
+              <label for=""
+                >Company
+                <span v-if="errors.company_id" style="color: red"
+                  >* {{ errors.company_id }}</span
+                ></label
+              >
               <select
                 name=""
                 id=""
@@ -22,12 +32,15 @@
                 v-model="form.company_id"
               >
                 <option value="">Pilih Company</option>
-                <option
+                <!-- <option
                   v-for="(data, key) in companies"
                   :key="{ key }"
                   :value="{ key }"
                 >
                   {{ data }}
+                </option> -->
+                <option v-for="(key, index) in company" :value="key.id">
+                  {{ key.name }}
                 </option>
               </select>
             </div>
@@ -39,6 +52,8 @@
                   style="font-size: 10px"
                   class="text-danger"
                   >(Jika tidak ingin diubah biarkan saja)</span
+                ><span v-if="errors.banner" style="color: red"
+                  >* {{ errors.banner }}</span
                 ></label
               >
               <input type="file" class="form-control" ref="banner" />
@@ -51,12 +66,19 @@
                   style="font-size: 10px"
                   class="text-danger"
                   >(Jika tidak ingin diubah biarkan saja)</span
+                ><span v-if="errors.top_banner" style="color: red"
+                  >* {{ errors.top_banner }}</span
                 ></label
               >
               <input type="file" class="form-control" ref="top_banner" />
             </div>
             <div class="col-md-12 mb-3">
-              <label for="">Deskripsi</label>
+              <label for=""
+                >Deskripsi
+                <span v-if="errors.desc" style="color: red"
+                  >* {{ errors.desc }}</span
+                ></label
+              >
               <textarea
                 v-model="form.desc"
                 class="form-control"
@@ -73,7 +95,12 @@
             class="row align-items-end"
           >
             <div class="col-md-4 mb-3">
-              <label for="">Voucher</label>
+              <label for=""
+                >Voucher
+                <span v-if="errors[`voucher.${key}`]" style="color: red"
+                  >* {{ errors[`voucher.${key}`] }}</span
+                ></label
+              >
               <input
                 type="text"
                 class="form-control"
@@ -82,7 +109,12 @@
               />
             </div>
             <div class="col-md-4 mb-3">
-              <label for="">Harga</label>
+              <label for=""
+                >Harga
+                <span v-if="errors[`amount.${key}`]" style="color: red"
+                  >* {{ errors[`amount.${key}`] }}</span
+                ></label
+              >
               <input
                 type="number"
                 class="form-control"
@@ -91,7 +123,12 @@
               />
             </div>
             <div class="col-md-3 mb-3">
-              <label for="">Keuntungan</label>
+              <label for=""
+                >Keuntungan
+                <span v-if="errors[`margin.${key}`]" style="color: red"
+                  >* {{ errors[`margin.${key}`] }}</span
+                ></label
+              >
               <input
                 type="number"
                 class="form-control"
@@ -134,12 +171,12 @@
 </template>
 <script>
 import LayoutApp from "@/Layouts/BackofficeLayout.vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm } from "@inertiajs/vue3";
 
 export default {
   layout: LayoutApp,
   props: {
-    company: Object,
+    company: Array,
     errors: Object,
     data: Object,
   },
@@ -154,19 +191,23 @@ export default {
       voucher: props.data.voucher,
       amount: props.data.amount,
       margin: props.data.margin,
+      oldidvoucher: props.data.oldidvoucher,
+      oldvoucher: props.data.oldvoucher,
+      oldamount: props.data.oldamount,
+      oldmargin: props.data.oldmargin,
     });
     return { form };
   },
-  computed: {
-    companies() {
-      let arr = [];
-      this.company.map(function (data, key) {
-        arr[key] = data.name;
-      });
+  //   computed: {
+  //     companies() {
+  //       let arr = [];
+  //       this.company.map(function (data, key) {
+  //         arr[key] = data.name;
+  //       });
 
-      return arr;
-    },
-  },
+  //       return arr;
+  //     },
+  //   },
   mounted() {
     console.log(this.errors);
   },

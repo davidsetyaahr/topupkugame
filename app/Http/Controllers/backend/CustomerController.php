@@ -45,7 +45,7 @@ class CustomerController extends Controller
                 $model->save();
             });
 
-            return redirect()->route('customer.index')->with('message', 'Password berhasil direset.');
+            return Inertia::location(route('customer.index'));
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {

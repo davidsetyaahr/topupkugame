@@ -49,7 +49,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/produk', ProductController::class);
     Route::prefix('pemesanan')->group(function () {
-        Route::resource('/', SellController::class);
+        // Route::resource('/', SellController::class);
+        Route::get('/', [SellController::class, 'index']);
+        Route::get('/{id}', [SellController::class, 'show']);
         Route::get('/acc/{id}', [SellController::class, 'acc']);
         Route::get('/reject/{id}', [SellController::class, 'reject']);
         Route::get('/rekap', [SellController::class, 'rekap']);

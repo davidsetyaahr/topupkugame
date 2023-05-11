@@ -44,7 +44,10 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-             'image_banner'   => 'required|mimes:jpeg,png,jpg,webp',
+            'image_banner'   => 'required|mimes:jpeg,png,jpg,webp',
+            'url'   => 'required',
+        ], [
+            'required' => ':attribute harus diisi.'
         ]);
         try {
             DB::transaction(function () use ($request) {
@@ -56,7 +59,7 @@ class BannerController extends Controller
                 $model->save();
             });
 
-            return redirect()->route('banner.index')->with('message', 'Data berhasil ditambahkan.');
+            return Inertia::location(route('banner.index'));
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
@@ -115,7 +118,7 @@ class BannerController extends Controller
                 $model->save();
             });
 
-            return redirect()->route('banner.index')->with('message', 'Data berhasil ditambahkan.');
+            return Inertia::location(route('banner.index'));
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
@@ -131,7 +134,7 @@ class BannerController extends Controller
         try {
             Banner::find($id)->delete();
 
-            return redirect()->route('banner.index')->with('message', 'Data berhasil ditambahkan.');
+            return Inertia::location(route('banner.index'));
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {

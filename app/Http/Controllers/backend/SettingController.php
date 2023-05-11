@@ -67,7 +67,7 @@ class SettingController extends Controller
                 $model->save();
             });
 
-            return redirect()->back()->with('message', 'Data berhasil ditambahkan.');
+            return Inertia::location(route('setting.create'));
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {

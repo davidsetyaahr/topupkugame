@@ -77,7 +77,7 @@ class AuthController extends Controller
             $data = Customer::where('email', $request->email)->first();
             if ($data != null) {
                 if (!Hash::check($request->password, $data->password)) {
-                    return redirect('auth-customer/login')->with('error', 'Password salah.');
+                    return redirect('auth-customer/login')->with('message', 'Password salah.');
                 } else {
                     $arr = [
                         'id' => $data->id,
@@ -89,7 +89,7 @@ class AuthController extends Controller
                     return redirect('/');
                 }
             } else {
-                return redirect('auth-customer/login')->with('error', 'Akun tidak ditemukan.');
+                return redirect('auth-customer/login')->with('message', 'Akun tidak ditemukan.');
             }
         } catch (\Throwable $th) {
             //throw $th;

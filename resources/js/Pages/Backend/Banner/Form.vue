@@ -12,12 +12,19 @@
                   style="font-size: 10px"
                   class="text-danger"
                   >(Jika tidak ingin diubah biarkan saja)</span
+                ><span v-if="errors.image_banner" style="color: red"
+                  >* {{ errors.image_banner }}</span
                 ></label
               >
               <input type="file" class="form-control" ref="image_banner" />
             </div>
             <div class="col-md-6 mb-3">
-              <label for="">URL</label>
+              <label for=""
+                >URL
+                <span v-if="errors.url" style="color: red"
+                  >* {{ errors.url }}</span
+                ></label
+              >
               <input
                 type="text"
                 class="form-control"
@@ -40,7 +47,7 @@
 </template>
 <script>
 import LayoutApp from "@/Layouts/BackofficeLayout.vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm } from "@inertiajs/vue3";
 
 export default {
   layout: LayoutApp,
