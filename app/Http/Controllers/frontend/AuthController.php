@@ -80,6 +80,7 @@ class AuthController extends Controller
                     return redirect('auth-customer/login')->with('error', 'Password salah.');
                 } else {
                     Session::put('email', $data->email);
+                    return redirect('/');
                 }
             } else {
                 return redirect('auth-customer/login')->with('error', 'Akun tidak ditemukan.');
