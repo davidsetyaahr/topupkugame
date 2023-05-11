@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\PaymentMethodController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\SellController;
+use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\OrderController;
 use Illuminate\Foundation\Application;
@@ -42,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/banner', BannerController::class);
     Route::resource('/payment-method', PaymentMethodController::class);
     Route::resource('/customer', CustomerController::class);
+    Route::resource('/setting', SettingController::class);
 });
 
 Route::middleware('auth')->group(function () {

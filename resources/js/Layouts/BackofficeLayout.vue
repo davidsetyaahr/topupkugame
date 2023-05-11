@@ -37,6 +37,11 @@ import { Head } from "@inertiajs/vue3";
           ><span class="fa fa-file"></span> Rekap</Link
         >
       </li>
+      <li :class="segment1 == 'setting' ? 'active' : ''">
+        <Link href="/setting/create"
+          ><span class="fa fa-gear"></span> Setting Company</Link
+        >
+      </li>
     </ul>
     <img
       src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/22ba8af1-9afe-4a42-8798-aa2a150683e0/dcc3x19-0caebc89-cddd-49e1-a23a-6cfe40e26bbe.png/v1/fill/w_1024,h_575,strp/mobile_legends_gatot_kaca_transparent__ahrat_king_by_b_la_ze_dcc3x19-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTc1IiwicGF0aCI6IlwvZlwvMjJiYThhZjEtOWFmZS00YTQyLTg3OTgtYWEyYTE1MDY4M2UwXC9kY2MzeDE5LTBjYWViYzg5LWNkZGQtNDllMS1hMjNhLTZjZmU0MGUyNmJiZS5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.xRBLY3WcKPH6t0JrNZWB1AxzGyfTnIYgJv78MERZRcc"
