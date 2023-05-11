@@ -69,20 +69,21 @@ class AuthController extends Controller
 
     public function storeLogin(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required'
+        $request->validate([
+            'email'   => 'required|email',
+            'password'   => 'required',
         ]);
         try {
             $data = Customer::where('email', $request->email)->first();
             if ($data != null) {
                 if (!Hash::check($request->password, $data->password)) {
-                    return redirect('auth-customer/login')->with('message', 'Password salah.');
+                    return redirect('auth-customer/login')->with('error', 'Password salah.');
                 } else {
                     Session::put('email', $data->email);
+                    return redirect('/');
                 }
             } else {
-                return redirect('auth-customer/login')->with('message', 'Akun tidak ditemukan.');
+                return redirect('auth-customer/login')->with('error', 'Akun tidak ditemukan.');
             }
         } catch (\Throwable $th) {
             //throw $th;
