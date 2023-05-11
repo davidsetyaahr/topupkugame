@@ -80,20 +80,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-4 box p-4">
+                    <div class="mt-4 box p-4" v-if="customer !== null">
                         <div class="d-flex align-items-center">
                             <div class="box-number me-3">4</div>
                             <h5 class="fw-bold color-orange my-0">
-                                Nomor WhatsApp  <small class="ms-2 color-red fs-13">{{err.phone}}</small>
+                                Konfirmasi
                             </h5>
                         </div>
                         <hr style="border-color:white;opacity:1">
                         <div class="row">
                             <div class="col-12">
-                                <input type="text" v-model="form.phone" class="form-control btn-circle" placeholder="08xxxxxxxx">
-                                <p class="color-grey mt-3">Bukti pembelianmu akan kami kirimkan ke WhatsApp.</p>
+                                <p class="color-grey">Konfirmasi dan lakukan pembayaran</p>
                                 <button  @click.prevent="checkConfirm()" class="btn btn-primary px-4 fw-bold btn-circle">Konfirmasi Top Up <span class="fa fa-arrow-right ms-1"></span></button>
                             </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 box p-4" v-else>
+                        <div class="d-flex align-items-center">
+                            <h5 class="fw-bold color-orange my-0">
+                                Login untuk melakukan pemesanan
+                            </h5>
                         </div>
                     </div>
                 </div>
@@ -138,10 +144,16 @@
                                     <img :src="asset('img/'+form.payment_method.toLowerCase()+'.webp')" class="mt-2" style="width:50%" alt="" srcset="">
                                 </div>
                             </div>
-                            <div class="col-12 mb-3">
+                            <div class="col-6 mb-3">
+                                <div class="radius15 bg-secondary h-100 p-3" style="--bs-bg-opacity:.1">
+                                    <p class="fw-bold mb-1 fs-16 color-purple">Nama</p>
+                                    <p class="my-0 fs-16">{{customer.name}}</p>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
                                 <div class="radius15 bg-secondary h-100 p-3" style="--bs-bg-opacity:.1">
                                     <p class="fw-bold mb-1 fs-16 color-purple">Nomor WhatsApp</p>
-                                    <p class="my-0 fs-16">{{form.phone}}</p>
+                                    <p class="my-0 fs-16">{{customer.phone}}</p>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +189,7 @@ export default {
                 server_id : '',
                 voucher_id : '',
                 payment_method : '',
-                phone : '',
+                customer_id : this.customer !== null ? this.customer.id : '',
             },
             submitted : false,
             isConfirm: false,
@@ -185,12 +197,12 @@ export default {
                 user_server_id : null,
                 voucher_id : null,
                 payment_method : null,
-                phone : null,
             }
         }
     },
     props:{
-        product : Object
+        product : Object,
+        customer : Object, 
     },
     methods:{
         submit(){
@@ -226,14 +238,8 @@ export default {
                 this.err.payment_method = null
             }
 
-            if(this.form.phone == ''){
-                this.err.phone = 'Masukkan Nomor WhatsApp'
-            }
-            else{
-                this.err.phone = null
-            }
 
-            if(this.err.user_server_id == null && this.err.voucher_id == null && this.err.payment_method == null && this.err.phone == null ){
+            if(this.err.user_server_id == null && this.err.voucher_id == null && this.err.payment_method == null){
                 this.isConfirm = true
             }
             else{

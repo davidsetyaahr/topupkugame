@@ -11,7 +11,7 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>No Hp</th>
+              <th>Customer</th>
               <th>ID Game</th>
               <th>ID Server ID</th>
               <th>Voucher</th>
@@ -23,7 +23,11 @@
           <tbody>
             <tr v-for="(data, key) in sell" :key="key">
               <td>{{ key + 1 }}</td>
-              <td>{{ data.phone }}</td>
+              <td>
+                {{ data.customer.name }}
+                <br>
+                {{ data.customer.phone }}
+                </td>
               <td>{{ data.username_game }}</td>
               <td>{{ data.server_id }}</td>
               <td>

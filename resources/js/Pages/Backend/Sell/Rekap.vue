@@ -52,7 +52,11 @@
             <tr v-for="(data, key) in data" :key="key">
               <td>{{ key + 1 }}</td>
               <td>{{ data.code }}</td>
-              <td>{{ data.phone }}</td>
+              <td>
+                {{ data.customer.name }}
+                <br>
+                {{ data.customer.phone }}
+                </td>
               <td>{{ data.username_game }}</td>
               <td>{{ data.server_id != null ? data.server_id : "-" }}</td>
               <td>

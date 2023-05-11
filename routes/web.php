@@ -32,6 +32,8 @@ Route::post('/order', [OrderController::class, 'store']);
 Route::post('/proof-of-payment', [OrderController::class, 'proofOfPayment'])->name('proof-of-payment');
 Route::get('/order-success/{url}', [OrderController::class, 'orderSuccess']);
 Route::get('/upload-success/{url}', [OrderController::class, 'uploadSuccess']);
+Route::get('/cek-pesanan', [OrderController::class, 'cekOrder']);
+Route::get('/metode-pembayaran', [OrderController::class, 'paymentMethod']);
 Route::prefix('auth-customer')->group(
     function () {
         Route::get('/login', [AuthController::class, 'login']);

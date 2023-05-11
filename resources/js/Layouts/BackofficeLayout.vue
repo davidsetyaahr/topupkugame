@@ -67,9 +67,7 @@ import { Head } from "@inertiajs/vue3";
               <span class="me-3 color-white">Admin</span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><Link class="dropdown-item" :href="route('logout')" method="post" as="button">Logout</Link></li>
             </ul>
           </div>
         </div>

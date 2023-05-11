@@ -5,6 +5,17 @@
                 <div class="col-md-6">
                     <h3 class="fw-bold color-purple text-center">Order Sukses!</h3>
                     <h5 class="color-orange fw-bold text-center">Kode Pemesanan : {{sell.code}}</h5>
+                    <div class="text-center">
+                        <span v-if="sell.status === '0'" class="color-purple badge bg-warning">
+                            Status Pembayaran : Pending
+                        </span>
+                        <span v-if="sell.status === '1'" class="badge bg-success">
+                            Status Pembayaran : Berhasil
+                        </span>
+                        <span v-if="sell.status === '2'" class="badge bg-danger">
+                            Status Pembayaran : Ditolak
+                        </span>
+                    </div>
                     <div class="row mt-4">
                         <div class="col-6">
                             <div class="box p-4">
@@ -31,7 +42,7 @@
                                 </div>
                                 <hr style="border-color:white;opacity:1">
                                 <p class="mb-0 fs-16 fw-bold color-orange">
-                                    {{sell.phone}}
+                                    {{sell.payment_method.toUpperCase()}}
                                 </p> 
                             </div>
                         </div>
@@ -40,9 +51,9 @@
                         <center>
                             <h5 class="color-white fw-bold">Lakukan Pembayaran Sekarang!</h5>
                             <hr style="border-color:white;opacity:1">
-                            <img :src="asset('img/'+sell.payment_method.toLowerCase()+'.webp')" class="mb-3" style="width:40%" alt="" srcset="">
-                            <h5 class="color-orange fw-bold">David Setya</h5>
-                            <div class="fs-16 color-white">1234-1213-1212</div>
+                            <img :src="asset('img/'+paymentMethod.bank.toLowerCase()+'.webp')" class="mb-3" style="width:40%" alt="" srcset="">
+                            <h5 class="color-orange fw-bold">{{paymentMethod.name}}</h5>
+                            <div class="fs-16 color-white">{{paymentMethod.number}}</div>
                             <div class="btn btn-primary color-orange mt-3 fw-bold px-5">Rp {{formatRupiah(sell.amount)}}</div>
                         </center>
                     </div>
@@ -63,6 +74,9 @@
                         >
                             {{ errors.image }}
                         </div>                        
+                    </div>
+                    <div class="box p-4 mt-4" v-else>
+                        <img :src="`/storage/proof-of-payment/${sell.proof_of_payment}`" class="img-fluid" alt="" srcset="">
                     </div>
                 </div>
             </div>
@@ -102,6 +116,7 @@ export default {
     layout: LayoutApp,    
     props:{
         sell : Object,
+        paymentMethod : Object,
         errors : Object
     },
     data() {

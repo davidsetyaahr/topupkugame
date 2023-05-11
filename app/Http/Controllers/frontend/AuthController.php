@@ -46,7 +46,7 @@ class AuthController extends Controller
         $request->validate([
             'name'   => 'required',
             'email'   => 'required|unique:customers,email',
-            'phone'   => 'required',
+            'phone'   => 'required|unique:customers,phone',
             'password'   => 'required',
         ]);
         try {
@@ -79,7 +79,13 @@ class AuthController extends Controller
                 if (!Hash::check($request->password, $data->password)) {
                     return redirect('auth-customer/login')->with('error', 'Password salah.');
                 } else {
-                    Session::put('email', $data->email);
+                    $arr = [
+                        'id' => $data->id,
+                        'email' => $data->email,
+                        'phone' => $data->phone,
+                        'name' => $data->name,
+                    ];
+                    Session::put('customer', $arr);
                     return redirect('/');
                 }
             } else {
@@ -99,6 +105,6 @@ class AuthController extends Controller
     public function logout()
     {
         Session::flush();
-        return redirect('auth-customer/login')->with('message', 'Logout berhasil.');
+        return redirect('/')->with('message', 'Logout berhasil.');
     }
 }

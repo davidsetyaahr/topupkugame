@@ -13,4 +13,9 @@ class Sell extends Model
     {
         return $this->belongsTo(Voucher::class,'voucher_id');
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class,'customer_id');
+    }
 }

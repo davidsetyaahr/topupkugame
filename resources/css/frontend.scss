@@ -166,3 +166,33 @@ body{
     max-height: 80vh;
     overflow: auto;
 }
+.sticky-sidebar{
+    position: fixed;
+    width : 100%;
+    height: 100%;
+    top :0;
+    left :0;
+    background: rgba(75,85,99,.75);
+    z-index: 100;
+    
+    .sidebar{
+        background: var(--darkPurpleColor);
+        width : 300px;
+        height : 100vh;
+        display: flex;
+        flex-direction: column;
+
+        .sidebar-link,.sidebar-header{
+            padding : 0.9rem 1.5rem;
+        }
+
+        .sidebar-link{
+            font-size: 15px;
+            color:white;
+            text-decoration: none;
+        }
+    }
+}
+.navbar-brand:hover{
+    color:white;
+}
