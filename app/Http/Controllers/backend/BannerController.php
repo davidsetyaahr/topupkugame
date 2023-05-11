@@ -45,6 +45,9 @@ class BannerController extends Controller
     {
         $request->validate([
             'image_banner'   => 'required|mimes:jpeg,png,jpg,webp',
+            'url'   => 'required',
+        ], [
+            'required' => ':attribute harus diisi.'
         ]);
         try {
             DB::transaction(function () use ($request) {
