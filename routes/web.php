@@ -8,6 +8,7 @@ use App\Http\Controllers\backend\PaymentMethodController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\SellController;
 use App\Http\Controllers\backend\SettingController;
+use App\Http\Controllers\frontend\AuthController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\OrderController;
 use Illuminate\Foundation\Application;
@@ -30,6 +31,16 @@ Route::get('/details/{url}', [App\Http\Controllers\frontend\ProductController::c
 Route::post('/order', [OrderController::class, 'store']);
 Route::post('/proof-of-payment', [OrderController::class, 'proofOfPayment'])->name('proof-of-payment');
 Route::get('/order-success/{url}', [OrderController::class, 'orderSuccess']);
+Route::prefix('auth-customer')->group(
+    function () {
+        Route::get('/login', [AuthController::class, 'login']);
+        Route::get('/register', [AuthController::class, 'register']);
+        Route::post('/store-register', [AuthController::class, 'storeRegister']);
+        Route::post('/store-login', [AuthController::class, 'storeLogin']);
+        Route::get('/check-login', [AuthController::class, 'checkSession']);
+        Route::get('/logout', [AuthController::class, 'logout']);
+    }
+);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
