@@ -25,7 +25,7 @@
             <tr v-for="(data, key) in data" :key="key">
               <td>{{ key + 1 }}</td>
               <td>
-                <img :src="`/storage/master-banner/${data.banner}`" alt="" />
+                <img style="width:300px" :src="`/storage/master-banner/${data.banner}`" alt="" />
               </td>
               <td>{{ data.url }}</td>
               <td>

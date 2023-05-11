@@ -1,10 +1,5 @@
 <template>
-  <div class="row">
-    <div class="col">
-      <Link href="/customer/create" class="btn btn-primary btn-rounded px-3"
-        ><span class="fa fa-plus"></span> Tambah Customer</Link
-      >
-    </div>
+  <div class="row justify-content-end">
     <div class="col-md-3">
       <Search />
     </div>

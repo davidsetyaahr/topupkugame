@@ -44,13 +44,12 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'url'   => 'required',
-            'image_banner'   => 'required|mimes:jpeg,png,jpg',
+             'image_banner'   => 'required|mimes:jpeg,png,jpg,webp',
         ]);
         try {
             DB::transaction(function () use ($request) {
                 $document = $request->image_banner;
-                $document->storeAs('master-banner', $document->hashName());
+                $document->storeAs('public/master-banner', $document->hashName());
                 $model = new Banner();
                 $model->banner = $document->hashName();
                 $model->url = str_replace(' ', '-', strtolower($request->url));
@@ -106,7 +105,7 @@ class BannerController extends Controller
             DB::transaction(function () use ($request, $id) {
                 if ($request->image_banner) {
                     $document = $request->image_banner;
-                    $document->storeAs('master-banner', $document->hashName());
+                    $document->storeAs('public/master-banner', $document->hashName());
                 }
                 $model = Banner::find($id);
                 if ($request->image_banner) {

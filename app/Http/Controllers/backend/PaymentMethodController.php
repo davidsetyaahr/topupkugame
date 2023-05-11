@@ -54,7 +54,6 @@ class PaymentMethodController extends Controller
         $data = array(
             'page'  => 'edit',
             'id'    => $id,
-            'bank'  => $paymentMethod->bank,
             'name'  => $paymentMethod->name,
             'account_no'  => $paymentMethod->number,
         );
@@ -71,14 +70,12 @@ class PaymentMethodController extends Controller
     {
         $request->validate([
             'name'   => 'required',
-            'bank'   => 'required',
             'account_no'   => 'required',
         ]);
         try {
             DB::transaction(function () use ($request, $id) {
                 $model = PaymentMethod::find($id);
                 $model->name = $request->name;
-                $model->bank = $request->bank;
                 $model->number = $request->account_no;
                 $model->save();
             });

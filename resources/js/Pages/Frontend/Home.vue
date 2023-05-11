@@ -4,11 +4,8 @@
             <div class="row justify-content-center">
                 <div class="col-md-11">
                     <carousel :items-to-show="1" :wrap-around="true">
-                        <slide :index="1">
-                            <img src="https://xcashshop.com/_next/image?url=https%3A%2F%2Fsin1.contabostorage.com%2F8ea28123e3b44e7cbd4cf5ad976f428b%3Axc-assets%2Fmedia%2Ffile-1679825274-v6rs9n0d-xc-new-banner-website-1-11-1.png&w=1080&q=75" class="banner" alt="" srcset="">
-                        </slide>
-                        <slide :index="2">
-                            <img src="https://xcashshop.com/_next/image?url=https%3A%2F%2Fsin1.contabostorage.com%2F8ea28123e3b44e7cbd4cf5ad976f428b%3Axc-assets%2Fmedia%2Ffile-1679825274-v6rs9n0d-xc-new-banner-website-1-11-1.png&w=1080&q=75" class="banner" alt="" srcset="">
+                        <slide v-for="(data,key) in banner" :key="key" :index="key">
+                            <img :src="`storage/master-banner/${data.banner}`" class="banner" alt="" srcset="">
                         </slide>
 
                         <template #addons>
@@ -122,11 +119,17 @@
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import LayoutApp from '@/Layouts/FrontendLayout.vue'
+import {asset} from '@/Utils/MyFunction.js'
+
 
 export default {
     layout: LayoutApp,    
     props:{
-        product : Object
+        product : Object,
+        banner : Object
+    },
+    methods:{
+        asset
     },
     components: {
         Carousel,

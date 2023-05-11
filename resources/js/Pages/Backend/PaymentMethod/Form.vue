@@ -5,15 +5,6 @@
         <form @submit.prevent="submit">
           <div class="row">
             <div class="col-md-4 mb-3">
-              <label for="">Bank</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.bank"
-                placeholder="Cth : Bank"
-              />
-            </div>
-            <div class="col-md-4 mb-3">
               <label for="">Nama</label>
               <input
                 type="text"
@@ -59,7 +50,6 @@ export default {
     const form = useForm({
       id: props.data.id,
       name: props.data.name,
-      bank: props.data.bank,
       account_no: props.data.account_no,
     });
     return { form };
