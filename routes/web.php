@@ -33,8 +33,12 @@ Route::get('/order-success/{url}', [OrderController::class, 'orderSuccess']);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/produk', ProductController::class);
-    Route::get('/rekap', [SellController::class, 'rekap']);
-    Route::resource('/pemesanan', SellController::class);
+    Route::prefix('pemesanan')->group(function () {
+        Route::resource('/', SellController::class);
+        Route::get('/acc/{id}', [SellController::class, 'acc']);
+        Route::get('/reject/{id}', [SellController::class, 'reject']);
+        Route::get('/rekap', [SellController::class, 'rekap']);
+    });
     Route::resource('/banner', BannerController::class);
     Route::resource('/payment-method', PaymentMethodController::class);
     Route::resource('/customer', CustomerController::class);

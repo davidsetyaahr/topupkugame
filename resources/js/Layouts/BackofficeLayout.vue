@@ -13,7 +13,7 @@ import { Head } from "@inertiajs/vue3";
           ><span class="fa fa-dashboard"></span> Dashboard
         </Link>
       </li>
-      <li :class="segment1 == 'pemesanan' ? 'active' : ''">
+      <li :class="segment1 == 'pemesanan' && segment2 == null ? 'active' : ''">
         <Link href="/pemesanan"
           ><span class="fa fa-mobile-alt"></span> Pemesanan</Link
         >
@@ -32,8 +32,10 @@ import { Head } from "@inertiajs/vue3";
           ><span class="fa fa-credit-card"></span> Payment Method</Link
         >
       </li>
-      <li :class="segment1 == 'rekap' ? 'active' : ''">
-        <Link href="/rekap"><span class="fa fa-file"></span> Rekap</Link>
+      <li :class="segment2 == 'rekap' ? 'active' : ''">
+        <Link href="/pemesanan/rekap"
+          ><span class="fa fa-file"></span> Rekap</Link
+        >
       </li>
     </ul>
     <img
@@ -84,11 +86,13 @@ export default {
   data() {
     return {
       segment1: window.location.pathname.split("/")[1],
+      segment2: window.location.pathname.split("/")[2],
     };
   },
   watch: {
     title() {
       this.segment1 = window.location.pathname.split("/")[1];
+      this.segment2 = window.location.pathname.split("/")[2];
     },
   },
 };

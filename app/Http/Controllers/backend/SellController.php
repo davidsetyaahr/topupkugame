@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Sell;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
 class SellController extends Controller
@@ -93,5 +94,39 @@ class SellController extends Controller
             'margin' => $margin,
             'total' => $total,
         ]);
+    }
+
+    public function acc($id)
+    {
+        try {
+            DB::transaction(function () use ($id) {
+                $model = Sell::find($id);
+                $model->status = '1';
+                $model->save();
+            });
+
+            return redirect()->route('pemesanan.index')->with('message', 'Data berhasil diterima.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan pada database : ' . $e);
+        }
+    }
+
+    public function reject($id)
+    {
+        try {
+            DB::transaction(function () use ($id) {
+                $model = Sell::find($id);
+                $model->status = '2';
+                $model->save();
+            });
+
+            return redirect()->route('pemesanan.index')->with('message', 'Data berhasil diterima.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan pada database : ' . $e);
+        }
     }
 }
