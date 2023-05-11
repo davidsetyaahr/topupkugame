@@ -43,7 +43,7 @@ class SellController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Sell::find($id);
     }
 
     /**
