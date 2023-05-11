@@ -57,7 +57,6 @@ class BannerController extends Controller
             });
 
             return Inertia::location(route('banner.index'));
-            return redirect()->route('banner.index')->with('message', 'Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
@@ -117,7 +116,6 @@ class BannerController extends Controller
             });
 
             return Inertia::location(route('banner.index'));
-            return redirect()->route('banner.index')->with('message', 'Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
@@ -134,7 +132,6 @@ class BannerController extends Controller
             Banner::find($id)->delete();
 
             return Inertia::location(route('banner.index'));
-            return redirect()->route('banner.index')->with('message', 'Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {

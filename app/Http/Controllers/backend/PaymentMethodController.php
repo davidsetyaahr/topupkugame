@@ -81,7 +81,6 @@ class PaymentMethodController extends Controller
             });
 
             return Inertia::location(route('payment-method.index'));
-            return redirect()->route('payment-method.index')->with('message', 'Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {

@@ -106,7 +106,6 @@ class SellController extends Controller
             });
 
             return Inertia::location(route('pemesanan.index'));
-            return redirect()->route('pemesanan.index')->with('message', 'Data berhasil diterima.');
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
@@ -124,7 +123,6 @@ class SellController extends Controller
             });
 
             return Inertia::location(route('pemesanan.index'));
-            return redirect()->route('pemesanan.index')->with('message', 'Data berhasil diterima.');
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {

@@ -82,7 +82,6 @@ class ProductController extends Controller
                 }
             });
             return Inertia::location(route('produk.index'));
-            return redirect()->route('produk.index')->with('message', 'Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
@@ -182,8 +181,6 @@ class ProductController extends Controller
                     $modelVouher->save();
                 }
             });
-
-            return redirect()->route('produk.index')->with('message', 'Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
@@ -202,7 +199,7 @@ class ProductController extends Controller
                 $model = Product::find($id);
                 $model->delete();
             });
-            return redirect()->route('produk.index')->with('message', 'Produk berhasil dihapus.');
+            return Inertia::location(route('produk.index'));
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
