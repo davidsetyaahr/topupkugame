@@ -10,7 +10,21 @@
                   <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                   <p class="text-white-50 mb-5">
                     Please enter your login and password!
+                    <!-- {{ session.error }} -->
                   </p>
+                  <!-- <div
+                    class="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+                    v-if="session('error')"
+                  >
+                    {{ session("message") }}
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="alert"
+                      aria-label="Close"
+                    ></button>
+                  </div> -->
 
                   <div class="form-outline form-white mb-4">
                     <input
@@ -18,9 +32,13 @@
                       class="form-control"
                       v-model="form.email"
                       placeholder="Cth : Email"
-                      :message="form.errors.email"
                     />
-                    <label for="">Email</label>
+                    <label for=""
+                      >Email
+                      <span v-if="errors.email" style="color: red"
+                        >* {{ errors.email }}</span
+                      ></label
+                    >
                   </div>
 
                   <div class="form-outline form-white mb-4">
@@ -30,7 +48,12 @@
                       v-model="form.password"
                       placeholder="Cth : Password"
                     />
-                    <label for="">Password</label>
+                    <label for=""
+                      >Password
+                      <span v-if="errors.password" style="color: red"
+                        >* {{ errors.password }}</span
+                      ></label
+                    >
                   </div>
 
                   <button

@@ -19,18 +19,27 @@
                       v-model="form.name"
                       placeholder="Cth : Nama"
                     />
-                    <label for="">Nama</label>
+                    <label for=""
+                      >Nama
+                      <span v-if="errors.name" style="color: red"
+                        >* {{ errors.name }}</span
+                      ></label
+                    >
                   </div>
 
                   <div class="form-outline form-white mb-4">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control error"
                       v-model="form.email"
                       placeholder="Cth : Email"
-                      :message="form.errors.email"
                     />
-                    <label for="">Email</label>
+                    <label for=""
+                      >Email
+                      <span v-if="errors.email" style="color: red"
+                        >* {{ errors.email }}</span
+                      ></label
+                    >
                   </div>
 
                   <div class="form-outline form-white mb-4">
@@ -40,7 +49,12 @@
                       v-model="form.phone"
                       placeholder="Cth : Telepon"
                     />
-                    <label for="">Telepon</label>
+                    <label for=""
+                      >Telepon
+                      <span v-if="errors.phone" style="color: red"
+                        >* {{ errors.phone }}</span
+                      ></label
+                    >
                   </div>
 
                   <div class="form-outline form-white mb-4">
@@ -50,7 +64,12 @@
                       v-model="form.password"
                       placeholder="Cth : Password"
                     />
-                    <label for="">Password</label>
+                    <label for=""
+                      >Password
+                      <span v-if="errors.password" style="color: red"
+                        >* {{ errors.password }}</span
+                      ></label
+                    >
                   </div>
 
                   <button
