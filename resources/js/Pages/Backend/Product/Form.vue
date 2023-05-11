@@ -221,7 +221,6 @@ export default {
       }
       if (this.data.page == "create") {
         this.form.post(`/produk`);
-        console.log("ads");
       } else {
         this.form.put(`/produk/` + this.form.id);
       }

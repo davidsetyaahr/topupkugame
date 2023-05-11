@@ -119,6 +119,7 @@ import LayoutApp from "@/Layouts/BackofficeLayout.vue";
 import Search from "@/Components/Search.vue";
 import { formatRupiah, asset } from "@/Utils/MyFunction.js";
 import { Inertia } from "@inertiajs/inertia";
+import { useForm } from "@inertiajs/vue3";
 
 export default {
   layout: LayoutApp,
@@ -136,12 +137,16 @@ export default {
       modalDetail: {},
     };
   },
+  setup(props) {
+    const form = useForm({});
+    return { form };
+  },
   methods: {
     formatRupiah,
     asset,
     acc(id, name) {
       if (confirm("Yakin ingin mengacc id game " + name + " ?")) {
-        Inertia.get("/pemesanan/acc/" + id);
+        this.form.get("/pemesanan/acc/" + id);
         const truck_modal = document.querySelector("#modalCek");
         const modal = bootstrap.Modal.getInstance(truck_modal);
         modal.hide();
@@ -149,7 +154,7 @@ export default {
     },
     reject(id, name) {
       if (confirm("Yakin ingin menolak id game " + name + " ?")) {
-        Inertia.get("/pemesanan/reject/" + id);
+        this.form.get("/pemesanan/reject/" + id);
         const truck_modal = document.querySelector("#modalCek");
         const modal = bootstrap.Modal.getInstance(truck_modal);
         modal.hide();
