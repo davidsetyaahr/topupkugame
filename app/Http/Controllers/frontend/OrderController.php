@@ -64,6 +64,16 @@ class OrderController extends Controller
         ]);
     }
 
+    public function uploadSuccess($url)
+    {
+        $sell = Sell::with('voucher.product')->where('url',$url)->firstOrFail();
+
+        return Inertia::render('Frontend/Order/Upload-success', [
+            'title' => 'Upload Sukses',
+            'sell' => $sell,
+        ]);
+    }
+
     public function proofOfPayment(Request $request)
     {
         try{

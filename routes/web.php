@@ -27,6 +27,7 @@ Route::get('/details/{url}', [App\Http\Controllers\frontend\ProductController::c
 Route::post('/order', [OrderController::class, 'store']);
 Route::post('/proof-of-payment', [OrderController::class, 'proofOfPayment'])->name('proof-of-payment');
 Route::get('/order-success/{url}', [OrderController::class, 'orderSuccess']);
+Route::get('/upload-success/{url}', [OrderController::class, 'uploadSuccess']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -49,7 +49,7 @@
                     <div class="box p-4 mt-4" v-if="url">
                         <img :src="url" class="img-fluid" alt="" srcset="">
                     </div>
-                    <div class="box p-4 mt-4">
+                    <div class="box p-4 mt-4" v-if="sell.proof_of_payment == null">
                         <label for="" class="mb-2 fw-bold d-block color-orange">Upload Bukti Pembayaran</label>
                         <form @submit.prevent="cekSubmit">
                             <div class="input-group">
