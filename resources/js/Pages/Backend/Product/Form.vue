@@ -5,7 +5,12 @@
         <form @submit.prevent="submit">
           <div class="row">
             <div class="col-md-12 mb-3">
-              <label for="">Nama Produk</label>
+              <label for=""
+                >Nama Produk {{ errors }}
+                <span v-if="errors.name" style="color: red"
+                  >* {{ errors.name }}</span
+                ></label
+              >
               <input
                 type="text"
                 v-model="form.name"

@@ -55,13 +55,6 @@ class ProductController extends Controller
     {
         $request->validate([
             'name'   => 'required',
-            'company_id'   => 'required',
-            'banner'   => 'required|mimes:jpeg,png,jpg',
-            'top_banner'   => 'required|mimes:jpeg,png,jpg',
-            'desc'   => 'required',
-            'voucher.*'   => 'required',
-            'amount.*'   => 'required',
-            'margin.*'   => 'required',
         ]);
         try {
             DB::transaction(function () use ($request) {
@@ -88,7 +81,7 @@ class ProductController extends Controller
                     $modelVouher->save();
                 }
             });
-
+            return Inertia::location(route('produk.index'));
             return redirect()->route('produk.index')->with('message', 'Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
