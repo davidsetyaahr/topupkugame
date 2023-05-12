@@ -191,23 +191,9 @@ export default {
       voucher: props.data.voucher,
       amount: props.data.amount,
       margin: props.data.margin,
-      oldidvoucher: props.data.oldidvoucher,
-      oldvoucher: props.data.oldvoucher,
-      oldamount: props.data.oldamount,
-      oldmargin: props.data.oldmargin,
     });
     return { form };
   },
-  //   computed: {
-  //     companies() {
-  //       let arr = [];
-  //       this.company.map(function (data, key) {
-  //         arr[key] = data.name;
-  //       });
-
-  //       return arr;
-  //     },
-  //   },
   mounted() {
     console.log(this.errors);
   },

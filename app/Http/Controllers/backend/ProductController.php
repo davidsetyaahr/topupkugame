@@ -129,28 +129,16 @@ class ProductController extends Controller
             'banner'  => '',
             'top_banner'  => '',
             'desc'  => $model->description,
-            'voucher'  => [],
-            'amount'  => [],
-            'margin'  => [],
-            'oldvoucher'  => [],
-            'oldidvoucher'  => [],
-            'oldamount'  => [],
-            'oldmargin'  => [],
+            'voucher'  => '',
+            'amount'  => '',
+            'margin'  => '',
         );
         $voucher = Voucher::where('product_id', $id)->get();
-        foreach ($voucher as $key => $value) {
-            array_push($data['voucher'], $value->title);
-            array_push($data['amount'], $value->amount);
-            array_push($data['margin'], $value->margin);
-            array_push($data['oldidvoucher'], $value->id);
-            array_push($data['oldvoucher'], $value->title);
-            array_push($data['oldamount'], $value->amount);
-            array_push($data['oldmargin'], $value->margin);
-        }
-        return Inertia::render('Backend/Product/Form', [
+        return Inertia::render('Backend/Product/Edit', [
             'title' => 'Edit Produk',
             'company' => Company::all(),
             'data' => $data,
+            'voucher' => $voucher,
         ]);
     }
 
@@ -164,9 +152,12 @@ class ProductController extends Controller
             'name'   => 'required',
             'company_id'   => 'required',
             'desc'   => 'required',
-            'voucher.*'   => 'required',
-            'amount.*'   => 'required',
-            'margin.*'   => 'required',
+        ], [
+            'required' => ':attribute harus diisi.'
+        ], [
+            'name' => 'Nama Produk',
+            'company_id' => 'Company',
+            'desc' => 'Deskripsi',
         ]);
         // if ($request->banner) {
         //     'banner'   => 'required|mimes:jpeg,png,jpg',
@@ -176,53 +167,28 @@ class ProductController extends Controller
         // }
         try {
             DB::transaction(function () use ($request, $id) {
-                foreach ($request->oldidvoucher as $keyOld => $valueOld) {
-                    $oldVoucher = Voucher::find($valueOld);
-                    if ($oldVoucher != null) {
-                        $oldVoucher->title = $request->voucher[$keyOld];
-                        $oldVoucher->amount = $request->amount[$keyOld];
-                        $oldVoucher->margin = $request->margin[$keyOld];
-                        $oldVoucher->save();
-                    } else {
-                        $voucher = new Voucher;
-                        $voucher->title = $request->voucher[$keyOld];
-                        $voucher->amount = $request->amount[$keyOld];
-                        $voucher->margin = $request->margin[$keyOld];
-                        $voucher->save();
-                    }
+                if ($request->banner) {
+                    $document = $request->banner;
+                    $document->storeAs('banner', $document->hashName());
                 }
-                // if ($request->banner) {
-                //     $document = $request->banner;
-                //     $document->storeAs('banner', $document->hashName());
-                // }
-                // if ($request->top_banner) {
-                //     $documentTop = $request->top_banner;
-                //     $documentTop->storeAs('top-banner', $documentTop->hashName());
-                // }
-                // $model = Product::find($id);
-                // $model->company_id = $request->company_id;
-                // $model->name = $request->name;
-                // if ($request->banner) {
-                //     $model->banner = $document->hashName();
-                // }
-                // if ($request->top_banner) {
-                //     $model->top_banner = $documentTop->hashName();
-                // }
-                // $model->description = $request->desc;
-                // $model->url = str_replace(' ', '-', strtolower($request->name));
-                // $model->save();
-
-                // // insert voucher
-                // foreach ($request->voucher as $key => $value) {
-                //     $modelVouher = new Voucher;
-                //     $modelVouher->product_id  = $model->id;
-                //     $modelVouher->title = $value;
-                //     $modelVouher->amount = $request->amount[$key];
-                //     $modelVouher->margin = $request->margin[$key];
-                //     $modelVouher->save();
-                // }
+                if ($request->top_banner) {
+                    $documentTop = $request->top_banner;
+                    $documentTop->storeAs('top-banner', $documentTop->hashName());
+                }
+                $model = Product::find($id);
+                $model->company_id = $request->company_id;
+                $model->name = $request->name;
+                if ($request->banner) {
+                    $model->banner = $document->hashName();
+                }
+                if ($request->top_banner) {
+                    $model->top_banner = $documentTop->hashName();
+                }
+                $model->description = $request->desc;
+                $model->url = str_replace(' ', '-', strtolower($request->name));
+                $model->save();
             });
-            return Inertia::location(route('produk.index'));
+            return Inertia::location(route('produk.edit', $id));
         } catch (\Exception $e) {
             return $e->getMessage();
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
@@ -247,6 +213,97 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
+    }
+
+    public function storeVoucher(Request $request)
+    {
+        $request->validate([
+            'voucher'   => 'required',
+            'amount'   => 'required',
+            'margin'   => 'required',
+        ], [
+            'required' => ':attribute harus diisi.'
+        ], [
+            'voucher' => 'Nama voucher',
+            'amount' => 'Harga',
+            'margin' => 'Keuntungan',
+        ]);
+        try {
+            DB::transaction(function () use ($request) {
+                $model = new Voucher;
+                $model->product_id  = $request->product_id;
+                $model->title = $request->voucher;
+                $model->amount = $request->amount;
+                $model->margin = $request->margin;
+                $model->save();
+            });
+            return Inertia::location(redirect()->back());
+        } catch (\Exception $e) {
+            return $e->getMessage();
+            return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return $e->getMessage();
+            return redirect()->back()->with('message', 'Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
+    }
+
+    public function destroyVoucher(string $id)
+    {
+        try {
+            DB::transaction(function () use ($id) {
+                $model = Voucher::find($id);
+                $model->delete();
+            });
+            return Inertia::location(redirect()->back());
+        } catch (\Exception $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
+    }
+
+    public function editVoucher(string $id)
+    {
+        try {
+            $model = Voucher::find($id);
+            return $model;
+        } catch (\Exception $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('message', 'Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
+    }
+
+    public function updateVoucher(Request $request)
+    {
+        $request->validate([
+            'voucher'   => 'required',
+            'amount'   => 'required',
+            'margin'   => 'required',
+        ], [
+            'required' => ':attribute harus diisi.'
+        ], [
+            'voucher' => 'Nama voucher',
+            'amount' => 'Harga',
+            'margin' => 'Keuntungan',
+        ]);
+        try {
+            DB::transaction(function () use ($request) {
+                $model = Voucher::find($request->id);
+                $model->product_id  = $request->product_id;
+                $model->title = $request->voucher;
+                $model->amount = $request->amount;
+                $model->margin = $request->margin;
+                $model->save();
+            });
+            return Inertia::location(redirect()->back());
+        } catch (\Exception $e) {
+            return $e->getMessage();
+            return redirect()->back()->with('message', 'Terjadi kesalahan. : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return $e->getMessage();
             return redirect()->back()->with('message', 'Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }
