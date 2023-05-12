@@ -16,7 +16,7 @@
     <nav class="navbar nav-top py-4 navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <div class="d-flex align-items-center">
-                <a @click.prevent="openSidebar = !openSidebar" href="" class="color-orange fa-lg text-decoration-none me-5">
+                <a @click.prevent="openSidebar = !openSidebar" href="" class="color-orange fa-lg text-decoration-none me-4">
                     <span class="fa fa-bars"></span>
                 </a>
                 <Link class="navbar-brand" href="#"><span class="fas fa-gamepad color-orange me-1"></span> TopUpkuGame</Link>

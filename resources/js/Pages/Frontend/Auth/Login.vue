@@ -10,7 +10,7 @@
                   <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                   <p class="text-white-50 mb-5">
                     Please enter your login and password!
-                    {{ flash.message }}
+                    <!-- {{ flash.message }} -->
                   </p>
                   <!-- <div
                     class="alert alert-danger alert-dismissible fade show"

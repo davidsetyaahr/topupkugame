@@ -17,8 +17,8 @@
                         </span>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-6">
-                            <div class="box p-4">
+                        <div class="col-6 pe-1 pe-md-2">
+                            <div class="box h-100 p-4">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
                                         <p class="fs-16 mb-1 fw-bold color-white">{{sell.voucher.title}}</p>
@@ -32,8 +32,8 @@
                                 </p> 
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="box p-4">
+                        <div class="col-6 ps-1 ps-md-2">
+                            <div class="box h-100 p-4">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
                                         <p class="fs-16 mb-1 fw-bold color-white">{{sell.username_game}}</p>
