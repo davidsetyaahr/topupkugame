@@ -47,6 +47,12 @@ Route::prefix('auth-customer')->group(
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::prefix('voucher')->group(function () {
+        Route::post('/store', [ProductController::class, 'storeVoucher']);
+        Route::get('/{id}', [ProductController::class, 'editVoucher']);
+        Route::post('/update', [ProductController::class, 'updateVoucher']);
+        Route::get('/delete/{id}', [ProductController::class, 'destroyVoucher']);
+    });
     Route::resource('/produk', ProductController::class);
     Route::prefix('pemesanan')->group(function () {
         // Route::resource('/', SellController::class);

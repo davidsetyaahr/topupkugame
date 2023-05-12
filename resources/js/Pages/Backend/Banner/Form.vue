@@ -48,6 +48,7 @@
 <script>
 import LayoutApp from "@/Layouts/BackofficeLayout.vue";
 import { useForm } from "@inertiajs/vue3";
+import { Inertia } from "@inertiajs/inertia";
 
 export default {
   layout: LayoutApp,
@@ -72,7 +73,13 @@ export default {
       if (this.data.page == "create") {
         this.form.post(`/banner`);
       } else {
-        this.form.put(`/banner/` + this.form.id);
+        // this.form.put(`/banner/` + this.form.id);
+        Inertia.post(`/banner/${this.form.id}`, {
+          _method: "put",
+          id: this.form.id,
+          image_banner: this.form.image_banner,
+          url: this.form.url,
+        });
       }
     },
   },
