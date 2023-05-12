@@ -56,7 +56,11 @@
                   >* {{ errors.banner }}</span
                 ></label
               >
-              <input type="file" class="form-control" ref="banner" />
+              <input
+                type="file"
+                class="form-control"
+                @input="form.banner = $event.target.files[0]"
+              />
             </div>
             <div class="col-md-4 mb-3">
               <label for=""
@@ -70,7 +74,11 @@
                   >* {{ errors.top_banner }}</span
                 ></label
               >
-              <input type="file" class="form-control" ref="top_banner" />
+              <input
+                type="file"
+                class="form-control"
+                @input="form.top_banner = $event.target.files[0]"
+              />
             </div>
             <div class="col-md-12 mb-3">
               <label for=""
@@ -405,21 +413,30 @@ export default {
   },
   methods: {
     submit() {
-      if (this.$refs.banner) {
-        this.form.banner = this.$refs.banner.files[0];
-      }
-      if (this.$refs.top_banner) {
-        this.form.top_banner = this.$refs.top_banner.files[0];
-      }
+      //   if (this.$refs.banner) {
+      //     this.form.banner = this.$refs.banner.files[0];
+      //   }
+      //   if (this.$refs.top_banner) {
+      //     this.form.top_banner = this.$refs.top_banner.files[0];
+      //   }
       if (this.data.page == "create") {
         this.form.post(`/produk`);
       } else {
-        this.form.put(`/produk/` + this.form.id);
+        // this.form.put(`/produk/` + this.form.id);
+        Inertia.post(`/produk/${this.form.id}`, {
+          _method: "put",
+          id: this.form.id,
+          name: this.form.name,
+          company_id: this.form.company_id,
+          banner: this.form.banner,
+          top_banner: this.form.top_banner,
+          desc: this.form.desc,
+        });
       }
     },
     delete(id, name) {
       if (confirm("Yakin ingin menghapus voucher " + name + "?")) {
-        Inertia.get("/delete-voucher/" + id);
+        Inertia.get("/voucher/delete/" + id);
       }
     },
     submitVoucher() {
