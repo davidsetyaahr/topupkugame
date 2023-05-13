@@ -41,9 +41,9 @@ body{
     position:relative;
     border-radius:15px;
     overflow:hidden;
-    &:hover img{
-        transform:scale(1.2);
-    }
+}
+.card-product:hover img{
+    transform:scale(1.2);
 }
 .card-product img{
     width : 100%;
@@ -175,23 +175,23 @@ body{
     background: rgba(75,85,99,.75);
     z-index: 100;
     
-    .sidebar{
-        background: var(--darkPurpleColor);
-        width : 300px;
-        height : 100vh;
-        display: flex;
-        flex-direction: column;
+}
+.sticky-sidebar .sidebar{
+    background: var(--darkPurpleColor);
+    width : 300px;
+    height : 100vh;
+    display: flex;
+    flex-direction: column;
 
-        .sidebar-link,.sidebar-header{
-            padding : 0.9rem 1.5rem;
-        }
+}
+.sticky-sidebar .sidebar .sidebar-link,.sidebar-header{
+    padding : 0.9rem 1.5rem;
+}
 
-        .sidebar-link{
-            font-size: 15px;
-            color:white;
-            text-decoration: none;
-        }
-    }
+.sticky-sidebar .sidebar .sidebar-link{
+    font-size: 15px;
+    color:white;
+    text-decoration: none;
 }
 .navbar-brand:hover{
     color:white;

@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit">
-    <section style="background: #100c23">
+    <section style="background: #100c23;min-height:100vh">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -83,9 +83,6 @@
   </form>
 </template>
 
-<style>
-@import "@/../css/frontend.scss";
-</style>
 <script>
 import { useForm } from "@inertiajs/vue3";
 export default {
