@@ -11,8 +11,19 @@ body{
     background: #1f1e1f;
     position: fixed;
     display: flex;
+    z-index: 1000;
     flex-direction: column;
     overflow: hidden;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    &.hide{
+        transform: translateX(-100%);
+        -moz-transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+        -o-transform: translateX(-100%);
+    }
 
     ul{
         list-style: none;
@@ -49,6 +60,9 @@ body{
 .main{
     width: calc(100% - 250px);
     margin-left: auto;
+    &.full,&.sticky{
+        width : 100%;
+    }
     .content{
         margin-left : 1.5rem;
         margin-right : 1.5rem;

@@ -170,7 +170,7 @@ export default {
   },
   watch: {
     modal: function (val) {
-      axios.get(this.ziggy.url + "/pemesanan/" + val.id).then((response) => {
+      axios.get(this.ziggy.url + "/pemesanan/show/" + val.id).then((response) => {
         this.modalDetail = response.data;
       });
     },

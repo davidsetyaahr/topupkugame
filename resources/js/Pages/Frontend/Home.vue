@@ -29,7 +29,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-md-3 mb-3" v-for="(data,key) in product" :key="key">
-                    <a :href="`details/${data.url}`">
+                    <Link :href="`details/${data.url}`">
                         <div class="card-product">
                             <img :src="`storage/banner/${data.banner}`" alt="">
                             <div class="info">
@@ -37,7 +37,7 @@
                                 <p class="mb-0 mt-1">{{data.company.name}}</p>
                             </div>
                         </div>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

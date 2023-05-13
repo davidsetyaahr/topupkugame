@@ -3,7 +3,7 @@ import { Head } from "@inertiajs/vue3";
 </script>
 <template>
   <Head :title="title" />
-  <div class="sidebar">
+  <div class="sidebar" @click.stop="openSidebar = true" :class="{hide : !openSidebar}">
     <div class="logo text-center fw-bold">
       <span class="fa fa-gamepad me-2"></span> TopUpKu Game
     </div>
@@ -49,8 +49,9 @@ import { Head } from "@inertiajs/vue3";
       class="sticky-img"
     />
   </div>
-  <div class="main">
-    <div class="header">
+  <div class="main"  :class="{full : !openSidebar, sticky : isMobile}">
+    <div class="header justify-content-between">
+      <a href="" class="color-orange"  @click.stop.prevent="openSidebar = !openSidebar"><span class="fa fa-bars"></span></a>
       <div class="d-flex align-items-lg-center">
         <span class="user me-3">
           <span class="fa fa-user"></span>
@@ -88,12 +89,35 @@ export default {
   },
   data() {
     return {
+      openSidebar : true,
+      isMobile : false,
       segment1: window.location.pathname.split("/")[1],
       segment2: window.location.pathname.split("/")[2],
     };
   },
+  methods:{
+    checkMobile(x) {
+      if (x.matches) {
+        // If media query matches
+        this.isMobile = true;
+        this.openSidebar = false;
+      }
+    },
+  },
+  mounted(){
+    if(this.isMobile){
+      document.querySelector('body,html').addEventListener('click',()=>{
+        this.openSidebar = false
+      })
+    }
+    var x = window.matchMedia("(max-width: 768px)");
+    this.checkMobile(x); // Call listener function at run time
+  },
   watch: {
     title() {
+      if(this.isMobile){
+        this.openSidebar = false
+      }
       this.segment1 = window.location.pathname.split("/")[1];
       this.segment2 = window.location.pathname.split("/")[2];
     },

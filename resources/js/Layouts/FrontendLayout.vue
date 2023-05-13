@@ -1,4 +1,10 @@
+<script setup>
+import { Head } from "@inertiajs/vue3";
+</script>
+
 <template>
+  <Head :title="title" />
+
     <div class="sticky-sidebar" v-if="openSidebar" @click.prevent="openSidebar = !openSidebar">
         <div class="sidebar" @click.stop="openSidebar=true">
             <Link href="/" class="sidebar-header mt-4 color-white text-decoration-none">
@@ -72,7 +78,203 @@
 </template>
 
 <style>
-    @import "@/../css/frontend.scss";
+:root{
+    --darkColor : #090715;
+    --greyColor : #a6a6a6;
+    --darkPurpleColor : #0f0c23;
+    --orangeColor : #fd9800;
+    --purpleColor : #4826f6;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+    background : var(--darkColor);
+    font-size:14px;
+}
+.banner{
+    width : 100%;
+}
+.nav-top{
+    background:var(--darkPurpleColor) !important;
+    box-shadow : 0 100px 80px hsla(0,0%,89%,.07), 0 41.7776px 33.4221px hsla(0,0%,89%,.05), 0 22.3363px 17.869px hsla(0,0%,89%,.04), 0 12.5216px 10.0172px hsla(0,0%,89%,.04), 0 6.6501px 5.32008px hsla(0,0%,89%,.03), 0 2.76726px 2.21381px hsla(0,0%,89%,.02);
+}
+.nav-top a,.nav-top{
+    color:white;
+}
+.color-orange{
+    color:var(--orangeColor) !important;
+}
+.color-purple{
+    color:var(--purpleColor) !important;
+}
+.color-grey{
+    color:var(--greyColor) !important;
+}
+.color-white{
+    color:white !important;
+}
+.box{
+    border-radius: 15px;
+    box-shadow: 0 4px 80px hsla(0,0%,77%,.13), 0 1.6711px 33.4221px hsla(0,0%,77%,.09), 0 0.893452px 17.869px hsla(0,0%,77%,.08), 0 0.500862px 10.0172px hsla(0,0%,77%,.07), 0 0.266004px 5.32008px hsla(0,0%,77%,.05), 0 0.11069px 2.21381px hsla(0,0%,77%,.04);    
+}
+.card-product{
+    position:relative;
+    border-radius:15px;
+    overflow:hidden;
+}
+.card-product:hover img{
+    transform:scale(1.2);
+}
+.card-product img{
+    width : 100%;
+    height : 330px;
+    object-fit:cover;
+    transition: all.5s ease;
+    -webkit-transition: all.5s ease;
+    -o-transition: all.5s ease;
+    -moz-transition: all.5s ease;
+}
+.card-product .info p{
+    color:white;
+    font-size : 15px;
+}
+.card-product .info{
+    background-image: linear-gradient(180deg,rgba(255,255,255,0.1), var(--purpleColor));
+    position:absolute;
+    width : 100%;
+    height : 50%;
+    bottom : 0;
+    left : 0;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding : 1rem;
+}
+.pipe-only{
+    width: 40px;
+    height: 3px;
+    background: var(--orangeColor);    
+}
+.fs-16{
+    font-size:16px;
+}
+#why{
+    background: url("https://i.ytimg.com/vi/vOKKC-9nfZQ/maxresdefault.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;  
+    z-index:2;  
+}
+#why::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: rgba(9,7,21,.85);    
+}
+.box-icon {
+    border: 1px solid #fd9800;
+    justify-content: center;
+    align-items: center;
+    color: #fd9800;
+    width: 70px;
+    height: 70px;
+    font-size: 25px;
+    display: flex;
+    position: relative;
+}
+.pipes {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200%;
+    transform: translate(-25%) rotate(45deg);
+    z-index: -1;
+    display: flex;
+}
+.pipes .pipe {
+    margin-right: 10px;
+    width: 10px;
+    height: 80px;
+    background: #3f3e47;
+}
+.btn-circle{
+    border-radius:50px;
+}
+.btn-primary{
+    background:var(--purpleColor);
+    border-color:var(--purpleColor)
+}
+#footer{
+    background:#100c23
+}
+.box-number{
+    border : 3px solid var(--purpleColor);
+    height : 30px;
+    width : 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    font-size: 18px;
+    font-weight: bold;
+}
+.confirm-modal{
+    transition: all.3s ease;
+    -webkit-transition: all.3s ease;
+    -o-transition: all.3s ease;
+    -moz-transition: all.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top : 0;
+    left : 0;
+    width : 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index : 10000;
+}
+.confirm{
+    background:white;
+    border-radius : 30px;
+    padding : 1.5rem;
+    max-height: 80vh;
+    overflow: auto;
+}
+.sticky-sidebar{
+    position: fixed;
+    width : 100%;
+    height: 100%;
+    top :0;
+    left :0;
+    background: rgba(75,85,99,.75);
+    z-index: 100;
+    
+}
+.sticky-sidebar .sidebar{
+    background: var(--darkPurpleColor);
+    width : 300px;
+    height : 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+.sticky-sidebar .sidebar .sidebar-link,.sidebar-header{
+    padding : 0.9rem 1.5rem;
+}
+
+.sticky-sidebar .sidebar .sidebar-link{
+    font-size: 15px;
+    color:white;
+    text-decoration: none;
+}
+.navbar-brand:hover{
+    color:white;
+}
 </style>
 <script>
 export default {

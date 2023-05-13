@@ -57,7 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('pemesanan')->group(function () {
         // Route::resource('/', SellController::class);
         Route::get('/', [SellController::class, 'index']);
-        Route::get('/{id}', [SellController::class, 'show']);
+        Route::get('/show/{id}', [SellController::class, 'show']);
         Route::get('/acc/{id}', [SellController::class, 'acc']);
         Route::get('/reject/{id}', [SellController::class, 'reject']);
         Route::get('/rekap', [SellController::class, 'rekap']);
