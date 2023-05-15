@@ -20,6 +20,7 @@ import LayoutApp from '@/Layouts/FrontendLayout.vue'
 export default {
     layout: LayoutApp,    
     props:{
+        setting : Object, 
         sell : Object,
     },
     data(){
@@ -47,7 +48,7 @@ export default {
             }
         },    
         openWa(){
-            window.open(`https://wa.me/6282143403501?text=Halo Topupku Game.%0aSaya ingin konfirmasi pemesanan dengan kode *${this.sell.code}*`,'_blank');
+            window.open(`https://wa.me/${this.setting.whatsapp}?text=Halo Topupku Game.%0aSaya ingin konfirmasi pemesanan dengan kode *${this.sell.code}*`,'_blank');
         }
     }    
 }
