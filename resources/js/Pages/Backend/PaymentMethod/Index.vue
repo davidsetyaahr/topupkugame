@@ -1,14 +1,16 @@
 <template>
-  <!-- <div class="row">
+  <div class="row">
     <div class="col">
-      <Link href="/banner/create" class="btn btn-primary btn-rounded px-3"
-        ><span class="fa fa-plus"></span> Tambah Banner</Link
+      <Link
+        href="/payment-method/create"
+        class="btn btn-primary btn-rounded px-3"
+        ><span class="fa fa-plus"></span> Tambah Payment Method</Link
       >
     </div>
     <div class="col-md-3">
       <Search />
     </div>
-  </div> -->
+  </div>
   <div class="row">
     <div class="col-md-12">
       <div className="table-responsive">
@@ -19,6 +21,7 @@
               <th>Bank</th>
               <th>Nama</th>
               <th>Account No</th>
+              <th>Image</th>
               <th width="25%">Opsi</th>
             </tr>
           </thead>
@@ -29,11 +32,24 @@
               <td>{{ data.name }}</td>
               <td>{{ data.number }}</td>
               <td>
+                <img
+                  style="width: 300px"
+                  :src="`/storage/payment-method/${data.img}`"
+                  alt=""
+                />
+              </td>
+              <td>
                 <a
                   :href="`payment-method/${data.id}/edit`"
                   class="btn btn-sm btn-info"
                   style="margin-right: 15px"
                   >Edit</a
+                >
+                <a
+                  href="javascript:;"
+                  class="btn btn-sm btn-danger"
+                  @click="this.delete(data.id, data.name)"
+                  >Hapus</a
                 >
               </td>
             </tr>
@@ -57,8 +73,8 @@ export default {
   },
   methods: {
     delete(id, name) {
-      if (confirm("Yakin ingin menghapus banner ?")) {
-        Inertia.delete("/banner/" + id);
+      if (confirm("Yakin ingin menghapus payment method " + name + " ?")) {
+        Inertia.delete("/payment-method/" + id);
       }
     },
   },
