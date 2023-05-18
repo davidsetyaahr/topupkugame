@@ -66,7 +66,7 @@
                 <br />
                 {{ data.voucher.title }}
               </td>
-              <td>{{ data.payment_method }}</td>
+              <td>{{ data.payment_method.bank.toUpperCase() }}</td>
               <td>
                 <span class="color-orange">
                   {{ formatRupiah(data.amount) }}</span

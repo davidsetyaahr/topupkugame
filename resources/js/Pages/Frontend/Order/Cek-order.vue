@@ -27,7 +27,7 @@
                                         <td>{{data.username_game}}</td>
                                         <td>{{data.server_id}}</td>
                                         <td>Rp {{formatRupiah(data.amount)}}</td>
-                                        <td>{{data.payment_method.toUpperCase()}}</td>
+                                        <td>{{data.payment_method.name}}</td>
                                         <td>
                                             <Link :href="`/order-success/${data.url}`">Cek Disini</Link>
                                         </td>

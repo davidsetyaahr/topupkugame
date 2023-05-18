@@ -33,7 +33,7 @@
               <td>{{ data.number }}</td>
               <td>
                 <img
-                  style="width: 300px"
+                  style="width: 100px"
                   :src="`/storage/payment-method/${data.img}`"
                   alt=""
                 />

@@ -42,7 +42,7 @@
                                 </div>
                                 <hr style="border-color:white;opacity:1">
                                 <p class="mb-0 fs-16 fw-bold color-orange">
-                                    {{sell.payment_method.toUpperCase()}}
+                                    {{sell.payment_method.bank.toUpperCase()}}
                                 </p> 
                             </div>
                         </div>
@@ -51,9 +51,9 @@
                         <center>
                             <h5 class="color-white fw-bold">Lakukan Pembayaran Sekarang!</h5>
                             <hr style="border-color:white;opacity:1">
-                            <img :src="asset('img/'+paymentMethod.bank.toLowerCase()+'.webp')" class="mb-3" style="width:40%" alt="" srcset="">
-                            <h5 class="color-orange fw-bold">{{paymentMethod.name}}</h5>
-                            <div class="fs-16 color-white">{{paymentMethod.number}}</div>
+                            <img :src="storage('payment-method/'+sell.payment_method.img)" class="mb-3" style="width:40%" alt="" srcset="">
+                            <h5 class="color-orange fw-bold">{{sell.payment_method.name}}</h5>
+                            <div class="fs-16 color-white">{{sell.payment_method.number}}</div>
                             <div class="btn btn-primary color-orange mt-3 fw-bold px-5">Rp {{formatRupiah(sell.amount)}}</div>
                         </center>
                     </div>
@@ -110,13 +110,12 @@
 </template>
 <script>
 import LayoutApp from '@/Layouts/FrontendLayout.vue'
-import {formatRupiah,asset} from '@/Utils/MyFunction.js'
+import {formatRupiah,asset,storage} from '@/Utils/MyFunction.js'
 import { useForm } from "@inertiajs/inertia-vue3";
 export default {
     layout: LayoutApp,    
     props:{
         sell : Object,
-        paymentMethod : Object,
         errors : Object
     },
     data() {
@@ -159,7 +158,7 @@ export default {
                 this.url = URL.createObjectURL(file);
             }
         },
-        formatRupiah,asset        
+        formatRupiah,asset,storage        
     },    
 }
 </script>

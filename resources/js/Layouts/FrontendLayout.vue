@@ -25,7 +25,7 @@ import { Head } from "@inertiajs/vue3";
                 <a @click.prevent="openSidebar = !openSidebar" href="" class="color-orange fa-lg text-decoration-none me-4">
                     <span class="fa fa-bars"></span>
                 </a>
-                <Link class="navbar-brand" href="#"><span class="fas fa-gamepad color-orange me-1"></span> TopUpkuGame</Link>
+                <Link class="navbar-brand" href="/"><span class="fas fa-gamepad color-orange me-1"></span> TopUpkuGame</Link>
             </div>
             <Link v-if="customer===null" href="/auth-customer/login" class="text-decoration-none"><span class="fa fa-user me-1"></span> Login / Register</Link>
             <Link v-else href="/auth-customer/logout" class="text-decoration-none"><span class="fa fa-user me-1"></span> Logout ({{customer.name}})</Link>

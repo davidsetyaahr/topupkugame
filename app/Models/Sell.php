@@ -18,4 +18,9 @@ class Sell extends Model
     {
         return $this->belongsTo(Customer::class,'customer_id');
     }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class,'payment_method_id');
+    }
 }

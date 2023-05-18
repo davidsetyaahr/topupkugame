@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-6 mb-3" v-for="(data,key) in paymentMethod" :key="key">
                     <div class="box p-4 h-100">
-                        <img style="width:200px" :src="asset('img/'+data.bank.toLowerCase()+'.webp')"/>
+                        <img style="width:200px" :src="storage('payment-method/'+data.img)"/>
                         <hr style="border-color:white;opacity:.5">
                         <h5 class="fw-bold color-orange">{{data.name}}</h5>
                         <h5 class="fw-bold color-orange">{{data.number}}</h5>
@@ -16,7 +16,7 @@
 </template>
 <script>
 import LayoutApp from '@/Layouts/FrontendLayout.vue'
-import {asset} from '@/Utils/MyFunction.js'
+import {asset,storage} from '@/Utils/MyFunction.js'
 
 export default {
     layout: LayoutApp,    
@@ -24,7 +24,7 @@ export default {
         paymentMethod : Object
     },
     methods:{
-        asset
+        asset,storage
     },
     data(){
         return{

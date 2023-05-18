@@ -18,7 +18,6 @@ class OrderController extends Controller
         try{
             $request->validate([
                 'user_id'   => 'required',
-                'server_id'   => 'required',
                 'voucher_id'   => 'required',
                 'payment_method'   => 'required',
                 'customer_id'   => 'required',
@@ -43,7 +42,7 @@ class OrderController extends Controller
             $sell->voucher_id = $request->voucher_id;
             $sell->amount = $getVoucher->amount;
             $sell->margin = $getVoucher->margin;
-            $sell->payment_method = strtolower($request->payment_method);
+            $sell->payment_method_id = $request->payment_method;
             $sell->url = md5($code);
             $sell->status = '0';
             $sell->save();
@@ -60,12 +59,10 @@ class OrderController extends Controller
 
     public function orderSuccess($url)
     {
-        $sell = Sell::with('voucher.product')->where('url',$url)->firstOrFail();
-        $paymentMethod = PaymentMethod::where('bank',strtoupper($sell->payment_method))->first();
+        $sell = Sell::with('voucher.product')->with('paymentMethod')->where('url',$url)->firstOrFail();
         return Inertia::render('Frontend/Order/Order-success', [
             'title' => 'Order Sukses',
             'sell' => $sell,
-            'paymentMethod' => $paymentMethod,
         ]);
     }
 
@@ -109,7 +106,7 @@ class OrderController extends Controller
         $sell = [];
         if(Session::get('customer')){
             $id = Session::get('customer')['id'];
-            $sell = Sell::where('customer_id',$id)->with('voucher.product')->orderBy('id','desc')->get();
+            $sell = Sell::where('customer_id',$id)->with('voucher.product')->with('paymentMethod')->orderBy('id','desc')->get();
         }
         return Inertia::render('Frontend/Order/Cek-order', [
             'title' => 'Cek Pesanan',

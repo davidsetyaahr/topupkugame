@@ -34,7 +34,7 @@
                 {{ data.voucher.product.name }} <br />
                 {{ data.voucher.title }}
               </td>
-              <td>BCA</td>
+              <td>{{data.payment_method.bank.toUpperCase()}}</td>
               <td>
                 <span class="color-orange">
                   {{ formatRupiah(data.amount) }}</span

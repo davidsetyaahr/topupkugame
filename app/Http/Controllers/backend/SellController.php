@@ -18,7 +18,7 @@ class SellController extends Controller
     {
         return Inertia::render('Backend/Sell/Index', [
             'title' => 'Pemesanan',
-            'sell' => Sell::with('customer')->with('voucher.product')->where('status', '0')->orderBy('id', 'desc')->get(),
+            'sell' => Sell::with('customer')->with('voucher.product')->with('paymentMethod')->where('status', '0')->orderBy('id', 'desc')->get(),
         ]);
     }
 
@@ -78,7 +78,7 @@ class SellController extends Controller
             'dari' => $request->dari ? $request->dari : '',
             'sampai' => $request->sampai ? $request->sampai : '',
         ];
-        $data = Sell::with('customer')->with('voucher.product')->where('status', '1');
+        $data = Sell::with('customer')->with('voucher.product')->with('paymentMethod')->where('status', '1');
         if ($filter['dari'] != '' && $filter['sampai'] != '') {
             $data = $data->whereBetween('created_at', [$filter['dari'] . " 00:00:00", $filter['sampai'] . " 23:59:59"]);
         }

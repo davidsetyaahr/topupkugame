@@ -31,11 +31,12 @@
                             <div class="col-md-6 mb-3">
                                 <input type="text" v-model="form.user_id" placeholder="User ID" class="form-control btn-circle">
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-3" v-if="product.id == 1">
                                 <input type="text" v-model="form.server_id" placeholder="Server ID" class="form-control btn-circle">
                             </div>
                         </div>
-                        <p class="color-grey">Silahkan Masukkan User ID & Server Anda Dan Pastikan Benar.</p>
+                        <p class="color-grey" v-if="product.id == 1">Silahkan Masukkan User ID & Server Anda Dan Pastikan Benar.</p>
+                        <p class="color-grey" v-else>Silahkan Masukkan User ID Dan Pastikan Benar.</p>
                     </div>
                     <div class="mt-4 box p-4">
                         <div class="d-flex align-items-center">
@@ -68,14 +69,9 @@
                         </div>
                         <hr style="border-color:white;opacity:1">
                         <div class="row">
-                            <div class="col-6">
-                                <div :class="form.payment_method == 'BCA' ? 'active' : '' " class="h-100 card-voucher p-md-5 p-3" @click="form.payment_method = 'BCA'">
-                                    <img :src="asset('img/bca.webp')" class="img-fluid" alt="" srcset="">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div :class="form.payment_method == 'DANA' ? 'active' : '' " class="h-100 card-voucher p-md-5 p-3" @click="form.payment_method = 'DANA'">
-                                    <img :src="asset('img/dana.webp')" class="img-fluid" alt="" srcset="">
+                            <div v-for="(data,key) in paymentMethod" :key="key" class="col-6 mb-3">
+                                <div :class="form.payment_method == data.id ? 'active' : '' " class="h-100 card-voucher p-md-5 p-3" @click="form.payment_method = data.id">
+                                    <img :src="storage('payment-method/'+data.img)" class="img-fluid" alt="" srcset="">
                                 </div>
                             </div>
                         </div>
@@ -120,7 +116,7 @@
                                     <p class="my-0 fs-16">{{form.user_id}}</p>
                                 </div>
                             </div>
-                            <div class="col-6 mb-3 ps-1 ps-md-2">
+                            <div class="col-6 mb-3 ps-1 ps-md-2" v-if="product.id == 1">
                                 <div class="radius15 bg-secondary h-100 p-3" style="--bs-bg-opacity:.1">
                                     <p class="fw-bold mb-1 fs-16 color-purple">Server ID</p>
                                     <p class="my-0 fs-16">{{form.server_id}}</p>
@@ -141,7 +137,7 @@
                             <div class="col-6 mb-3  ps-1 ps-md-2">
                                 <div class="radius15 bg-secondary h-100 p-3" style="--bs-bg-opacity:.1">
                                     <p class="fw-bold mb-1 fs-16 color-purple">Pembayaran</p>
-                                    <img :src="asset('img/'+form.payment_method.toLowerCase()+'.webp')" class="mt-2" style="width:50%" alt="" srcset="">
+                                    <img :src="storage('payment-method/'+paymentMethod.find(x => x.id == form.payment_method).img)" class="mt-2" style="width:50%" alt="" srcset="">
                                 </div>
                             </div>
                             <div class="col-6 mb-3  pe-1 pe-md-2">
@@ -177,7 +173,7 @@
 </template>
 <script>
 import LayoutApp from '@/Layouts/FrontendLayout.vue'
-import {formatRupiah,asset} from '@/Utils/MyFunction.js'
+import {formatRupiah,asset,storage} from '@/Utils/MyFunction.js'
 import { Inertia } from '@inertiajs/inertia'
 
 export default {
@@ -203,6 +199,7 @@ export default {
     props:{
         product : Object,
         customer : Object, 
+        paymentMethod : Object, 
     },
     methods:{
         submit(){
@@ -217,8 +214,8 @@ export default {
             }
         },
         checkConfirm(){
-            if(this.form.user_id == '' || this.form.server_id == ''){
-                this.err.user_server_id = 'User ID & Server ID harus diisi'
+            if(this.form.user_id == ''){
+                this.err.user_server_id = 'User ID harus diisi'
             }
             else{
                 this.err.user_server_id = null
@@ -250,7 +247,7 @@ export default {
         getVoucher(){
             return this.product.voucher.find(d => d.id == this.form.voucher_id) 
         },
-        formatRupiah,asset
+        formatRupiah,asset,storage
     },
 }
 </script>

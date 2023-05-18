@@ -48,7 +48,7 @@ export default {
             }
         },    
         openWa(){
-            window.open(`https://wa.me/${this.setting.whatsapp}?text=Halo Topupku Game.%0aSaya ingin konfirmasi pemesanan dengan kode *${this.sell.code}*`,'_blank');
+            window.open(`https://wa.me/${this.setting.whatsapp}?text=Halo Topupku Game.%0aSaya ingin konfirmasi pemesanan:%0aKode Pemesanan : *${this.sell.code}*%0aUser ID : *${this.sell.username_game}*`,'_blank');
         }
     }    
 }
